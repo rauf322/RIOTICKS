@@ -1,30 +1,13 @@
-import { API_KEY, TMDB_BASE_URL } from './config.js';
+// frontend.js
 
 export async function fetchApiData(endpoint) {
-  const url = `${TMDB_BASE_URL}/${endpoint}?api_key=${API_KEY}`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await fetch(`/api/tmdb?endpoint=${endpoint}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  return res.json();
 }
 
 export async function searchApiData({ type, term, page }) {
-  const url = `${TMDB_BASE_URL}/search/${type}?api_key=${API_KEY}&query=${term}&page=${page}`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await fetch(`/api/tmdb?type=${type}&term=${term}&page=${page}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  return res.json();
 }

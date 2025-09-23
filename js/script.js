@@ -9,8 +9,7 @@ import { searchMovie } from './components/searchPage.js';
 function checkPage() {
   const currentPage = window.location.pathname;
   console.log('Current page:', currentPage);
-
-  // More flexible matching using includes() instead of exact matches
+// More flexible matching using includes() instead of exact matches
   if (currentPage.includes('shows')) {
     console.log('Loading TV shows page');
     displayTVSlider();
