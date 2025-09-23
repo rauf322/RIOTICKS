@@ -8,25 +8,28 @@ import { searchMovie } from './components/searchPage.js';
 
 function checkPage() {
   const currentPage = window.location.pathname;
-  console.log('Current page:', currentPage);
-// More flexible matching using includes() instead of exact matches
-  if (currentPage.includes('shows')) {
-    console.log('Loading TV shows page');
-    displayTVSlider();
-    displayPopularShows();
-  } else if (currentPage.includes('tv-details')) {
-    console.log('Loading TV details page');
-    displayTvDetails();
-  } else if (currentPage.includes('movie-details')) {
-    console.log('Loading movie details page');
-    displayMovieDetails();
-  } else if (currentPage.includes('search')) {
-    console.log('Loading search page');
-    searchMovie();
-  } else {
-    // Default to movies page (for index.html, root path, or any other path)
-    displayMovieSlider();
-    displayPopularMovie();
+
+  switch (currentPage) {
+    case '/':
+    case '/index.html':
+      displayMovieSlider();
+      displayPopularMovie();
+      break;
+    case '/shows.html':
+      displayTVSlider();
+      displayPopularShows();
+      break;
+    case '/tv-details.html':
+      displayTvDetails();
+      break;
+    case '/movie-details.html':
+      displayMovieDetails();
+      break;
+    case '/search.html':
+      searchMovie();
+      break;
+    default:
+      break;
   }
 }
 

@@ -1,13 +1,30 @@
-// frontend.js
+import { API_BASE_URL } from './config.js';
 
 export async function fetchApiData(endpoint) {
-  const res = await fetch(`/api/tmdb?endpoint=${endpoint}`);
-  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-  return res.json();
+  const url = `${API_BASE_URL}?endpoint=${encodeURIComponent(endpoint)}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function searchApiData({ type, term, page }) {
-  const res = await fetch(`/api/tmdb?type=${type}&term=${term}&page=${page}`);
-  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-  return res.json();
+  const url = `${API_BASE_URL}?type=${encodeURIComponent(type)}&term=${encodeURIComponent(term)}&page=${page || 1}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }

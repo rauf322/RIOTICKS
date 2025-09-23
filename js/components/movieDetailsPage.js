@@ -1,25 +1,25 @@
-import { displayBackgroundImage } from '../utils/displayBackground.js';
-import { fetchApiData } from '../api.js';
-import { IMAGE_BASE_URL } from '../config.js';
+import { displayBackgroundImage } from "../utils/displayBackground.js";
+import { fetchApiData } from "../api.js";
+import { IMAGE_BASE_URL } from "../config.js";
 
 export async function displayMovieDetails() {
   const urlParams = new URLSearchParams(window.location.search);
-  const movieId = urlParams.get('id');
+  const movieId = urlParams.get("id");
 
   if (!movieId) {
-    console.error('No movie ID found in URL');
+    console.error("No movie ID found in URL");
     return;
   }
 
   const results = await fetchApiData(`movie/${movieId}`);
-  displayBackgroundImage('movie', results.backdrop_path);
-  const mainDiv = document.querySelector('#movie-details');
-  const div = document.createElement('div');
-  div.classList.add('details-top');
+  displayBackgroundImage("movie", results.backdrop_path);
+  const mainDiv = document.querySelector("#movie-details");
+  const div = document.createElement("div");
+  div.classList.add("details-top");
   div.innerHTML = `
           <div>
             <img
-               src="${results.poster_path ? IMAGE_BASE_URL + results.poster_path : 'images/no-image.jpg'}"
+               src="${results.poster_path ? IMAGE_BASE_URL + results.poster_path : "images/no-image.jpg"}"
               class="card-img-top"
               alt="${results.original_title}"
             />
@@ -36,7 +36,7 @@ export async function displayMovieDetails() {
             </p>
             <h5>Genres</h5>
             <ul class="list-group">
-              ${results.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
+              ${results.genres.map((genre) => `<li>${genre.name}</li>`).join("")}
 
             </ul>
             <a href="/index.html" class="btn">Visit Movie Homepage</a>
@@ -52,7 +52,7 @@ export async function displayMovieDetails() {
           </ul>
           <h4>Production Companies</h4>
           <div class="list-group">
-              ${results.production_companies.map((company) => `<li>${company.name}</li>`).join('')}
+              ${results.production_companies.map((company) => `<li>${company.name}</li>`).join("")}
             </div>
 `;
   mainDiv.appendChild(div);
